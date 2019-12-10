@@ -183,7 +183,7 @@ func main() {
 	var (
 		listenAddress = flag.String("web.listen-address", ":9423", "Address to listen on for web interface and telemetry.")
 		metricsPath   = flag.String("web.telemetry-path", "/metrics", "Path under which to expose metrics.")
-		utilityPath   = flag.String("hpraid.utility-path", "ssacli", "Path of the ssacli utility.")
+		utilityPath   = flag.String("hpraid.utility-path", "hpssacli", "Path of the ssacli utility.")
 	)
 	flag.Parse()
 
