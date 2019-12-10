@@ -5,7 +5,7 @@ calls into the `ssacli` utility to provide metrics for errors reported by HP
 RAID hardware. Under the hood, it invokes the following command when being
 scraped:
 
-    ssacli ctrl all diag file=/tmp/...
+    hpssacli ctrl all diag file=/tmp/...
 
 This command generates a ZIP file containing a diagnostic report. The
 exporter opens the ZIP file and extracts the `ADUReport.xml` file. It
