@@ -38,7 +38,7 @@ var (
 	hpraidErrorsDesc = prometheus.NewDesc(
 		prometheus.BuildFQName("hpraid", "", "errors"),
 		"Errors in the diagnostic report reported by the RAID controller.",
-		[]string{"device", "message", "severity"}, nil)
+		[]string{"device", "message", "severity", "name"}, nil)
 )
 
 // ADUReport is the top level structure contained in the XML report file
@@ -86,13 +86,14 @@ func (d *Device) Collect(devicePrefix string, ch chan<- prometheus.Metric) {
 type Message struct {
 	Message  string `xml:"message,attr"`
 	Severity string `xml:"severity,attr"`
+	MarketingName string `xml:"marketingName,attr"`
 }
 
 // Collect data from an error message and convert it to a Prometheus metric.
 func (m *Message) Collect(devicePrefix string, ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(
 		hpraidErrorsDesc, prometheus.GaugeValue, 1.0,
-		devicePrefix, m.Message, m.Severity)
+		devicePrefix, m.Message, m.Severity, m.MarketingName)
 }
 
 // HpraidExporter is a Prometheus exporter implementation that calls
